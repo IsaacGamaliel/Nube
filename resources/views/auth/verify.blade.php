@@ -1,24 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+<main role="main">
+   <section class="jumbotron text-center mb-0">
+      <div class="row pt-5">
+         <div class="container">
+             <div class="row justify-content-center">
+                 <div class="col-md-8">
+                     <div class="card">
+                         <div class="card-header">{{ __('Verifique su dirección de correo electrónico') }}</div>
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
+                         <div class="card-body">
+                             @if (session('resent'))
+                                 <div class="alert alert-success" role="alert">
+                                     {{ __('Se ha enviado un nuevo enlace de verificación a su dirección de correo electrónico.') }}
+                                 </div>
+                             @endif
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                             {{ __('Antes de continuar, verifique su correo electrónico para obtener un enlace de verificación.') }}
+                             {{ __('Si no recibiste el correo electrónico') }}, <a href="{{ route('verification.resend') }}">{{ __('haga clic aquí para solicitar otro') }}</a>.
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+      </div>
+   </section>
+</main>
 @endsection
+

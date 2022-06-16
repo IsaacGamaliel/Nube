@@ -1,4 +1,3 @@
-
 // Fonts
 //@import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:400,700');
@@ -8,6 +7,12 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+//Font
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
 
 .navbar-laravel {
   background-color: #fff;

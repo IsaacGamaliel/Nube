@@ -40,6 +40,11 @@ class LoginController extends Controller
     //Creacion de funcion para iniciar sesion con usuario/contraseña
     public function username()
     {
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         $emailOrUsername = request()->input('username');
         $this->username = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 

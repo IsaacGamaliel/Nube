@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <main role="main">
@@ -15,7 +15,7 @@
                            <form method="POST" action="{{ route('login') }}">
                                @csrf
 
-                               < <div class="form-group row">
+                                <div class="form-group row">
                                 <label for="username" class="col-sm-4 col-form-label text-md-right">{{ __('Correo / Usuario') }}</label>
 
                                 <div class="col-md-6">

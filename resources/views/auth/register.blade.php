@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <main role="main">
@@ -45,7 +45,7 @@
                                  </div>
 
                                  <div class="form-group row">
-                                     <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Nombre de usuario (Username)') }}</label>
+                                     <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Usuario') }}</label>
 
                                      <div class="col-md-6">
                                          <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required>
