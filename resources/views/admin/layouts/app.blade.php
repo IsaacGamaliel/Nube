@@ -65,6 +65,9 @@
                             class="fas fa-file-upload"></i> Mis archivos</a>
                     <ul class="collapse list-unstyled" id="filesSubmenu">
                         <li>
+                            <a href="{{route('file.create')}}">Agregar Archivos</a>
+                        </li>
+                        <li>
                             <a href="#">Imágenes</a>
                         </li>
                         <li>
@@ -74,7 +77,7 @@
                             <a href="#">Documentos</a>
                         </li>
                         <li>
-                            <a href="#">ZIP</a>
+                            <a href="#">Audios</a>
                         </li>
                     </ul>
                 </li>
