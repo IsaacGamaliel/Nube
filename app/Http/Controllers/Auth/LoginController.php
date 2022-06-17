@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -41,16 +42,24 @@ class LoginController extends Controller
     public function username()
     {
         try {
-            //code...
+            $request = app('request');
+            Validator::extend('without_blanks', function($attr, $value){
+                return preg_match('/^\S*$/u', $value);
+            });
+            $validator = Validator::make($request->all(),[
+                'username' => ['required', 'string', 'max:50','without_blanks','unique:users'],
+                'password' => ['required', 'string', 'min:6','max:10'],
+            ]);
+
+            $emailOrUsername = request()->input('username');
+            $this->username = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+            request()->merge([$this->username => $emailOrUsername]);
+            return property_exists($this, 'username') ? $this->username : 'email';
+
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }
-        $emailOrUsername = request()->input('username');
-        $this->username = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-        request()->merge([$this->username => $emailOrUsername]);
-
-        return property_exists($this, 'username') ? $this->username : 'email';
+        
     }
 
 }

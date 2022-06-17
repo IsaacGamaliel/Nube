@@ -53,14 +53,22 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        //dd($data);
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'username' => ['required', 'string', 'max:20', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'image' => ['required','mimes:jpeg,jpg,png' ],
-        ]);
+        try {
+            Validator::extend('without_blanks', function($attr, $value){
+                return preg_match('/^\S*$/u', $value);
+            });
+            //dd($data);
+            return Validator::make($data, [
+                'name' => ['required', 'string', 'max:50','alpha'],
+                'email' => ['required', 'string', 'email', 'max:50', 'unique:users','without_blanks'],
+                'username' => ['required', 'string', 'max:20','min:5' ,'unique:users','without_blanks'],
+                'password' => ['required', 'string', 'min:6','max:10', 'confirmed','without_blanks'],
+                'image' => ['required','mimes:jpeg,jpg,png' ], 
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
     }
 
     /**
@@ -73,18 +81,27 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        $request = app('request');
-        if ($request->hasFile('image')) {
+        try {
+
+            $request = app('request');
+            if ($request->hasFile('image')) {
             $archivo=$request->file('image');
             $archivo->move(public_path().'/Archivos/',$archivo->getClientOriginalName());
             $nombre=$archivo->getClientOriginalName();
-        }
-        return User::create([
+            }
+
+
+            return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'image'=>$nombre,
             'username' => str_slug($data['username']),
             'password' => Hash::make($data['password']),
-        ]);
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        
     }
 }
