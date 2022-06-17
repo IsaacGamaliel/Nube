@@ -1,6 +1,6 @@
-
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:400,700');
 
 // Variables
 @import 'variables';
@@ -8,7 +8,60 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+//Font
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+body{
+	font-family: 'Raleway', sans-serif;
+	overflow-x: hidden;
+}
+
+*{margin: 0; padding: 0;}
+
+.bg-home, .jumbotron.bg{
+	background: #a8cae2;
+	border-radius: 0;
+}
+
+.img-home{
+	margin: 30px 30px 30px 0px;
+}
+
+.title-home{
+	font-size: 2.3rem;
+}
+
+.subtitle-home{
+	font-size: 1.5rem;
+}
+
+.alert-home{
+	border-top: 1px solid #72b6ec;
+	border-bottom: 1px solid #72b6ec;
+}
+
+.card-header{
+	background: #a8cae2;
+}
+
+.card-header:hover{
+	cursor: pointer;
+}
+
+.jumbotron.bg-secure{
+	background: #e18520;
+	border-radius: 0;
+}
+
+a.nav-link, .nav-item a, a.dropdown-item{
+	font-size: 1rem;
+}
+

@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class RegisterController extends Controller
 {
@@ -48,11 +53,22 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+        try {
+            Validator::extend('without_blanks', function($attr, $value){
+                return preg_match('/^\S*$/u', $value);
+            });
+            //dd($data);
+            return Validator::make($data, [
+                'name' => ['required', 'string', 'max:50','alpha'],
+                'email' => ['required', 'string', 'email', 'max:50', 'unique:users','without_blanks'],
+                'username' => ['required', 'string', 'max:20','min:5' ,'unique:users','without_blanks'],
+                'password' => ['required', 'string', 'min:6','max:10', 'confirmed','without_blanks'],
+                'image' => ['required','mimes:jpeg,jpg,png' ], 
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
     }
 
     /**
@@ -61,12 +77,31 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+    
+
     protected function create(array $data)
     {
-        return User::create([
+        try {
+
+            $request = app('request');
+            if ($request->hasFile('image')) {
+            $archivo=$request->file('image');
+            $archivo->move(public_path().'/Archivos/',$archivo->getClientOriginalName());
+            $nombre=$archivo->getClientOriginalName();
+            }
+
+
+            return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'image'=>$nombre,
+            'username' => str_slug($data['username']),
             'password' => Hash::make($data['password']),
-        ]);
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        
     }
 }
