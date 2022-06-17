@@ -65,6 +65,9 @@
                             class="fas fa-file-upload"></i> Mis archivos</a>
                     <ul class="collapse list-unstyled" id="filesSubmenu">
                         <li>
+                            <a href="{{route('file.create')}}">Agregar Archivos</a>
+                        </li>
+                        <li>
                             <a href="#">Imágenes</a>
                         </li>
                         <li>
@@ -74,7 +77,7 @@
                             <a href="#">Documentos</a>
                         </li>
                         <li>
-                            <a href="#">ZIP</a>
+                            <a href="#">Audios</a>
                         </li>
                     </ul>
                 </li>
@@ -132,6 +135,28 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
+        </nav>
+
+         <!-- Page Content Holder -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="navbar-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <div id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a>@yield('page')</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
 
 
