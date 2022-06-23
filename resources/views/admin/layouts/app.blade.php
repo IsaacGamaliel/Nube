@@ -65,19 +65,20 @@
                             class="fas fa-file-upload"></i> Mis archivos</a>
                     <ul class="collapse list-unstyled" id="filesSubmenu">
                         <li>
-                            <a href="{{route('file.create')}}">Agregar Archivos</a>
+                            <a href="{{route('file.create')}}">Agregar Archivo</a>
                         </li>
                         <li>
-                            <a href="#">Imágenes</a>
+                            <a href="{{route('file.images')}}">Imágenes</a>
                         </li>
                         <li>
-                            <a href="#">Videos</a>
+                            <a href="{{route('file.videos')}}">Videos</a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('file.audios')}}">Audios</a>
                         </li>
                         <li>
-                            <a href="#">Documentos</a>
-                        </li>
-                        <li>
-                            <a href="#">Audios</a>
+                            <a href="{{route('file.documents')}}">Documentos</a>
                         </li>
                     </ul>
                 </li>
@@ -158,6 +159,10 @@
                 </div>
             </div>
         </nav>
+
+@include('admin.partials.alert')
+@include('admin.partials.error')
+
 
 
         @yield('content')
