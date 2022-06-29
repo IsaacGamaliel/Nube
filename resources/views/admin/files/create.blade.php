@@ -8,7 +8,7 @@
        <div class="row d-flex flex-row justify-content-center align-items-center pt-5">
         <div class="form-group">
             <label for="file">
-                Selecciona un archivo para subirlo
+                Selecciona los archivos para subirlos
             </label>
             <input type="file" class="form-control-file" name="file" required>
         </div>

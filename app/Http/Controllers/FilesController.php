@@ -27,28 +27,31 @@ class FilesController extends Controller
     }
 
     public function images(){
-
-        return view('admin.files.type.images');
-    }
+		$images = File::whereUserId(auth()->id())
+			->OrderBy('id', 'desc')->where('type', '=', 'image')->get();
+		$folder = str_slug(Auth::user()->name . '-' . Auth::id());
+        
+		return view('admin.files.type.images', compact('images', 'folder'));
+	}
 
     public function videos(){
 
         return view('admin.files.type.videos');       
     }
-    public function audios(){
 
-        return view('admin.files.type.audios');
-                
+    public function audios(){
+        $audios = File::whereUserId(auth()->id())
+        ->OrderBy('id', 'desc')->where('type', '=', 'audio')->get();
+        $folder = str_slug(Auth::user()->name . '-' . Auth::id());
+    
+        return view('admin.files.type.audios', compact('audios', 'folder'));
     }
+
     public function documents(){
         
         return view('admin.files.type.documents');
 
     }
-
-
-
-
 
     public function store(Request $request){
         $max_size = (int)ini_get('upload_max_filesize')*1000;
@@ -114,6 +117,7 @@ class FilesController extends Controller
     }
 
     private function getUserFolder(){
-        return Auth::user()->name . '-' . Auth::id();
+        $folder =Auth::user()->name . '-' . Auth::id();
+        return str_slug($folder);
     }
 }

@@ -25,7 +25,7 @@
     <div class="wrapper">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
-            <a class="navbar-brand ml-4" href="#">
+            <a class="navbar-brand ml-4 pt-4" href="#">
                 <img src="{{asset('/img/logo_Sin_fondo.png')}}" width="30" height="30" class="d-inline-block align-top"
                     alt="">
                 ¡Nube
@@ -36,7 +36,7 @@
                     <img src="img/users/user.jpg" class="img-responsive" style="border-radius: 50%;" alt="" width="70">
                 </div>
                 <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">Brayan Angarita</div>
+                    <div class="profile-usertitle-name">Wero miranda</div>
                     <div class="profile-usertitle-status">admin@admin.com</div>
                 </div>
             </div>
