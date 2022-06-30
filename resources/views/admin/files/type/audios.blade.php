@@ -11,6 +11,12 @@
 
         <audio src="{{ asset('storage') }}/{{ $folder }}/audio/{{ $audio->name }}.{{ $audio->extension }}" controls></audio>
             
+        <form action="{{ route('file.destroy', $audio->id) }}" method="POST">
+            @csrf
+            <input type="hidden" name="_method" value="PATCH">
+            <button class="btn btn-danger" type="submit"><i class="fas fa-trash"></i>Eliminar</button>
+        </form>
+
         </div>
         @endforeach
     </div>

@@ -44,7 +44,11 @@
                                 href="{{ asset('storage') }}/{{ $folder }}/video/{{ $video->name }}.{{ $video->extension }}"><i
                                     class="fas fa-eye"></i> Ver</a></th>
                         <th scope="row">
-                            <a class="btn btn-danger text-white" href=""><i class="fas fa-trash"></i> Eliminar</a>
+                            <form action="{{ route('file.destroy', $video->id) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="_method" value="PATCH">
+                                <button class="btn btn-danger" type="submit"><i class="fas fa-trash"></i>Eliminar</button>
+                            </form>
                         </th>
 
                     </tr>

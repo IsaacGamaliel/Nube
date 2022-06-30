@@ -10,6 +10,7 @@
             <label for="file">
                 Selecciona los archivos para subirlos
             </label>
+
             <input type="file" class="form-control-file" name="file" required>
         </div>
         <div class="form-group">

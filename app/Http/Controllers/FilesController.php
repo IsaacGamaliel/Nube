@@ -72,7 +72,8 @@ class FilesController extends Controller
         $uploadFile = new File();
 
         $file = $request->file('file');
-        $name = time().$file->getClientOriginalExtension();
+        // $name = time().$file->getClientOriginalName();
+        $name = time().$file->getClientOriginalName();
         $ext = $file->getClientOriginalExtension();
         $type = $this->getType($ext);
 
@@ -99,6 +100,22 @@ class FilesController extends Controller
         }
 
         return back()->with('info',['success',' El archivo se ha subido correctamente']);
+    }
+
+    public function destroy($id)
+    {
+        $file = File::findOrFail($id);
+
+        if(Storage::disk('local')->exists('/public/' . $this->getUserFolder() . '/' . $file->type . '/' . $file->name . '.' . $file->extension)){
+
+            if(Storage::disk('local')->delete('/public/' . $this->getUserFolder() . '/' . $file->type . '/' . $file->name . '.' . $file->extension)){
+             
+                $file->delete();
+                return back()->with('info',['success',' El archivo se ha eliminado correctamente']);
+                
+            }
+
+        }
     }
 
     private function getType($ext){
