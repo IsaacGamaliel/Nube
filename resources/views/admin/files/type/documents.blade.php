@@ -28,36 +28,34 @@
 
                         <th scope="row">
 
-                            @if($document->extension == 'pdf' || $document->extension==
-                            'PDF')
-                            <img class="img-responsive" src="{{asset('img/pdf.png')}}"
-                             width="50">
+                            @if($document->extension == 'pdf' || $document->extension == 'PDF')
+                                <img class="img-responsive" src="{{ asset('img/files/pdf.svg') }}" width="50">
                             @endif
-                            @if($document->extension == 'xlsx' || $document->extension==
-                            'XLSX')
-                            <img class="img-responsive" src="{{asset('img/excel.png')}}"
-                             width="50">
+                            @if($document->extension == 'xlsx' || $document->extension == 'XLSX')
+                                <img class="img-responsive" src="{{ asset('img/files/excel.svg') }}" width="50">
                             @endif
-                            @if($document->extension == 'docx' || $document->extension==
-                            'DOCX')
-                            <img class="img-responsive" src="{{asset('img/word.png')}}"
-                             width="50">
+                            @if($document->extension == 'docx' || $document->extension == 'DOCX')
+                                <img class="img-responsive" src="{{ asset('img/files/word.svg') }}" width="50">
                             @endif
 
                         </th>
                         <th scope="row">{{$document->name}}</th>
                         <th scope="row">{{$document->created_at->DiffForHumans()}}</th>
                         <th scope="row">
-                            @if($document->extension == 'pdf' || $document->extension==
-                            'PDF')
-                            <a class="btn btn-primary" style="width: 55%;" target="_blank" href="{{ asset('storage') }}/{{ $folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i class="fas fa-eye"></i> Ver</a>
+                            @if($document->extension == 'pdf' || $document->extension== 'PDF')
+                            <a class="btn btn-primary" style="width: 55%;" target="_blank"
+                                href="{{ asset('storage') }}/{{ $folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
+                                    class="fas fa-eye"></i> Ver</a>
                             @else
-                            <a class="btn btn-success" style="width: 55%;" target="_blank" href="{{ asset('storage') }}/{{ $folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i class="fas fa-download"></i> Descargar</a
-                            >
+                            <a class="btn btn-success" style="width: 55%;" target="_blank"
+                                href="{{ asset('storage') }}/{{ $folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
+                                    class="fas fa-download"></i> Descargar</a>
                             @endif
-                            
+
                         </th>
-                        <th scope="row"><a clas="btn btn-danger pull-right" href=""><i clas="fas fa-trash">Eliminar</a></th>
+                        <th scope="row">
+                            <a class="btn btn-danger text-white" href=""><i class="fas fa-trash"></i> Eliminar</a>
+                        </th>
 
                     </tr>
                 </tbody>
