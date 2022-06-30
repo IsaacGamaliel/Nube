@@ -13,7 +13,7 @@ class FilesController extends Controller
 
     private $img_ext = ['jpg', 'png', 'jpeg', 'gif', 'PNG', 'JPEG', 'GIF', 'JPG'];
     private $video_ext = ['mp4', 'avi', 'MP4', 'AVI', 'MPEG'];
-    private $document_ext = ['doc', 'docx', 'pdf', 'odt', 'DOC', 'DOCX', 'PDF', 'ODT'];
+    private $document_ext = ['doc', 'docx', 'pdf','xlsx', 'odt', 'DOC', 'DOCX', 'PDF','XLSX', 'ODT'];
     private $audio_ext = ['mp3', 'mpga', 'wma', 'ogg', 'MP3', 'MPGA', 'WNA', 'OGG'];
 
 
@@ -35,9 +35,13 @@ class FilesController extends Controller
 	}
 
     public function videos(){
-
-        return view('admin.files.type.videos');       
+        $videos = File::whereUserId(auth()->id())
+        ->OrderBy('id', 'desc')->where('type', '=', 'video')->get();
+        $folder = str_slug(Auth::user()->name . '-' . Auth::id());
+    
+        return view('admin.files.type.videos', compact('videos', 'folder'));    
     }
+
 
     public function audios(){
         $audios = File::whereUserId(auth()->id())
@@ -49,7 +53,11 @@ class FilesController extends Controller
 
     public function documents(){
         
-        return view('admin.files.type.documents');
+        $documents = File::whereUserId(auth()->id())
+        ->OrderBy('id', 'desc')->where('type', '=', 'document')->get();
+        $folder = str_slug(Auth::user()->name . '-' . Auth::id());
+    
+        return view('admin.files.type.documents', compact('documents', 'folder'));
 
     }
 
@@ -108,7 +116,7 @@ class FilesController extends Controller
         }
         if(in_array($ext, $this->document_ext))
         {
-            return 'documento';
+            return 'document';
         }
     }
 
