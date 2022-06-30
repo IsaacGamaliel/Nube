@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class FilesController extends Controller
 
     private $img_ext = ['jpg', 'png', 'jpeg', 'gif', 'PNG', 'JPEG', 'GIF', 'JPG'];
     private $video_ext = ['mp4', 'avi', 'MP4', 'AVI', 'MPEG'];
-    private $document_ext = ['doc', 'docx', 'pdf', 'odt', 'DOC', 'DOCX', 'PDF', 'ODT'];
+    private $document_ext = ['doc', 'docx','xlsx', 'pdf', 'odt', 'DOC', 'DOCX','XLSX', 'PDF', 'ODT'];
     private $audio_ext = ['mp3', 'mpga', 'wma', 'ogg', 'MP3', 'MPGA', 'WNA', 'OGG'];
 
 
@@ -27,22 +27,35 @@ class FilesController extends Controller
     }
 
     public function images(){
-
-        return view('admin.files.type.images');
-    }
+		$images = File::whereUserId(auth()->id())
+			->OrderBy('id', 'desc')->where('type', '=', 'image')->get();
+		$folder = str_slug(Auth::user()->name . '-' . Auth::id());
+        
+		return view('admin.files.type.images', compact('images', 'folder'));
+	}
 
     public function videos(){
-
-        return view('admin.files.type.videos');       
+        $videos = File::whereUserId(auth()->id())
+        ->OrderBy('id', 'desc')->where('type', '=', 'video')->get();
+    $folder = str_slug(Auth::user()->name . '-' . Auth::id());
+    
+        return view('admin.files.type.videos', compact('videos', 'folder'));    
     }
     public function audios(){
-
-        return view('admin.files.type.audios');
+        $audios = File::whereUserId(auth()->id())
+        ->OrderBy('id', 'desc')->where('type', '=', 'audio')->get();
+    $folder = str_slug(Auth::user()->name . '-' . Auth::id());
+    
+        return view('admin.files.type.audios', compact('audios', 'folder'));
                 
     }
     public function documents(){
         
-        return view('admin.files.type.documents');
+        $documents = File::whereUserId(auth()->id())
+        ->OrderBy('id', 'desc')->where('type', '=', 'document')->get();
+    $folder = str_slug(Auth::user()->name . '-' . Auth::id());
+    
+        return view('admin.files.type.documents', compact('documents', 'folder'));
 
     }
 
@@ -105,15 +118,19 @@ class FilesController extends Controller
         }
         if(in_array($ext, $this->document_ext))
         {
-            return 'documento';
+            return 'document';
         }
     }
 
-    private function allExtensions(){
-        return array_merge($this->img_ext, $this->video_ext, $this->audio_ext, $this->document_ext); 
-    }
+    private function allExtensions()
+	{
+		return array_merge($this->img_ext, $this->video_ext, $this->document_ext, $this->audio_ext);
+	}
 
-    private function getUserFolder(){
-        return Auth::user()->name . '-' . Auth::id();
-    }
+	private function getUserFolder()
+	{
+		$folder = Auth::user()->name . '-' . Auth::id();
+        
+		return str_slug($folder);
+	}
 }
