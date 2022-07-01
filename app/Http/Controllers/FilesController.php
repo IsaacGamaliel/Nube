@@ -20,6 +20,12 @@ class FilesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:file.create');
+        $this->middleware('permission:file.store');
+        $this->middleware('permission:file.images');
+        $this->middleware('permission:file.videos');
+        $this->middleware('permission:file.audios');
+        $this->middleware('permission:file.documents');
     }
 
     public function create(){
