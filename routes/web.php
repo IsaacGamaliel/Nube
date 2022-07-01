@@ -22,9 +22,18 @@ Route::patch('archivos/eliminar/{id}', 'FilesController@destroy')->name('file.de
 
 
 
+//Roles
 Route::get('roles', 'Admin\RolesController@index')->name('role.index');
 Route::get('roles/agregar', 'Admin\RolesController@create')->name('role.create');
 Route::patch('roles/agregar', 'Admin\RolesController@store')->name('role.store');
+Route::get('roles/{id}/editar', 'Admin\RolesController@edit')->name('role.edit');
+Route::get('roles/{id}', 'Admin\RolesController@show')->name('role.show');
+Route::patch('roles/{id}/editar', 'Admin\RolesController@update')->name('role.update');
+Route::patch('roles/{id}/eliminar', 'Admin\RolesController@destroy')->name('role.destroy');
+
+
+
+
 
 
 

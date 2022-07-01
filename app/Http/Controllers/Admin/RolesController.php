@@ -53,7 +53,10 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        //
+        $role = Role::find($id);
+
+        $permissions = $role->permissions()->get();
+        return view('admin.roles.show', compact('role','permissions'));
     }
 
     /**
@@ -64,7 +67,9 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        $permissions = Permission::get();
+        return view('admin.roles.edit', compact('role','permissions'));
     }
 
     /**
@@ -76,7 +81,11 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role = Role::find($id);
+        $role->update($request->except('permissions'));
+        $role->permissions()->sync($request->get('permissions'));
+        return back()->with('info', ['success', 'Se ha actualizado el rol']);
+
     }
 
     /**

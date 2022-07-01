@@ -6,6 +6,12 @@
 
 <div class="container">
 	<div class="row">
+
+	<div class="col-sm-12 table-responsive">
+	<a class="btn btn-outline-success" 
+								href="{{ route('role.create')}}"><i
+									class="fas fa-plus-circle"></i> Agregar Rol</a> 
+</div>
 		<div class="col-sm-12 table-responsive">
 			<table class="table table-hover">
 				<thead>
@@ -22,11 +28,14 @@
 					<tr>
 						<th scope="row">{{$role->id}}</th>
 						<th scope="row">{{ $role->name }}</th>
-						<th scope="row">Ver</th>
-						<th scope="row">Editar
-							{{-- <a class="btn btn-primary" target="_blank"
-								href="{{ asset('storage') }}/{{ $folder }}/video/{{ $video->name }}.{{ $video->extension }}"><i
-									class="fas fa-eye"></i> Ver</a> --}}
+						<th scope="row">						
+							 <a class="btn btn-outline-success" 
+								href="{{ route('role.show', $role->id)}}"><i
+									class="fas fa-eye"></i> Ver</a> </th>
+						<th scope="row">
+						 <a class="btn btn-primary" 
+								href="{{ route('role.edit', $role->id)}}"><i
+									class="fas fa-pencil"></i> Editar</a> 
 						</th>
 						<th scope="row"> Eliminar
 
