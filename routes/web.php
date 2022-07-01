@@ -11,27 +11,20 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('dashboard');
 
 //Files
-Route::get('archivos/subir', 'FilesController@create')->name('file.create')->middleware('permission:file.create');
-
-
-Route::get('archivos/imagenes', 'FilesController@images')->name('file.images')->middleware('permission:file.images');
-
-
-Route::get('archivos/videos', 'FilesController@videos')->name('file.videos')->middleware('permission:file.videos');
-
-
-Route::get('archivos/audios', 'FilesController@audios')->name('file.audios')->middleware('permission:file.audios');
-
-
-Route::get('archivos/documentos', 'FilesController@documents')->name('file.documents')->middleware('permission:file.documents');
-
-
+Route::get('archivos/subir', 'FilesController@create')->name('file.create');
+Route::get('archivos/imagenes', 'FilesController@images')->name('file.images');
+Route::get('archivos/videos', 'FilesController@videos')->name('file.videos');
+Route::get('archivos/audios', 'FilesController@audios')->name('file.audios');
+Route::get('archivos/documentos', 'FilesController@documents')->name('file.documents');
 Route::post('archivos/subir', 'FilesController@store')->name('file.store');
-
-
 // Route::post('archivos/editar/{id}', 'FilesController@edit');
 Route::patch('archivos/eliminar/{id}', 'FilesController@destroy')->name('file.destroy');
 
+
+
+Route::get('roles', 'Admin\RolesController@index')->name('role.index');
+Route::get('roles/agregar', 'Admin\RolesController@create')->name('role.create');
+Route::patch('roles/agregar', 'Admin\RolesController@store')->name('role.store');
 
 
 
