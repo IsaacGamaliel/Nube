@@ -19,11 +19,18 @@
                                 <label for="username" class="col-sm-4 col-form-label text-md-right">{{ __('Correo / Usuario') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="username" type="text" class="form-control{{ $errors->has('email') || $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+                                    <input id="username" type="text" class="form-control{{ $errors->has('email') || $errors->has('username') ? ' is-invalid' : '' }}" name="username" minlength="5" maxlength="50" value="{{ old('username') }}" required autofocus>
 
                                     @if ($errors->has('username'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('username') }}</strong>
+                                        </span>
+                                    @endif
+                                        
+                                
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -33,8 +40,12 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required maxlength="11" minlength="6">
 
+                                    <script>
+                                        bootstrapValidate(['#password','#username'],'required:Campo vacio')
+                                        bootstrapValidate('#password','min:6:Minimo 6|max:10:Maximo 10')
+                                    </script>
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>

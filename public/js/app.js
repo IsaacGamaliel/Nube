@@ -49606,7 +49606,12 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 
 var app = new Vue({
   el: '#app'
-});
+}); //Validaciones registro
+
+bootstrapValidate(['#name', '#username', '#email', '#image', '#password', '#password-confirm'], 'required:Campo vacio');
+bootstrapValidate('#name', 'min:5:Minimo 5|max:40:Maximo 40');
+bootstrapValidate('#email', 'email:Ingresa un correo valido|min:5:Minimo 5|max:40:Maximo 40');
+bootstrapValidate('#password-confirm', 'min:6:Minimo 6|max:10:Maximo 10|matches:#password:Contraseñas no son iguales');
 
 /***/ }),
 
@@ -49766,9 +49771,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Inube\Nube\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Inube\Nube\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Inube\Nube\resources\sass\admin.scss */"./resources/sass/admin.scss");
+__webpack_require__(/*! C:\Nube\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Nube\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Nube\resources\sass\admin.scss */"./resources/sass/admin.scss");
 
 
 /***/ })

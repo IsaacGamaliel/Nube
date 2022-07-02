@@ -31,3 +31,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app'
 });
+
+//Validaciones registro
+bootstrapValidate(['#name','#username','#email','#image','#password','#password-confirm'],'required:Campo vacio')
+bootstrapValidate('#name','min:5:Minimo 5|max:40:Maximo 40')
+bootstrapValidate('#email','email:Ingresa un correo valido|min:5:Minimo 5|max:40:Maximo 40')
+bootstrapValidate('#password-confirm','min:6:Minimo 6|max:10:Maximo 10|matches:#password:Contraseñas no son iguales')
