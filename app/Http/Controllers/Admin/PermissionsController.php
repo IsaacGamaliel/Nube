@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class RolesController extends Controller
+class PermissionsController extends Controller
 {
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware(['role:Admin']);
+       
     }
 
     /**
@@ -23,8 +23,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('admin.roles.index', compact('roles'));
+        $permissions = Permission::all();
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     /**
@@ -34,8 +34,8 @@ class RolesController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
-        return view('admin.roles.create', compact('permissions'));
+        
+        return view('admin.permissions.create');
     }
 
     /**
@@ -46,10 +46,8 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create($request->except('permissions'));
-        $role->permissions()->sync($request->get('permissions'));
-
-        return back()->with('info', ['success', 'Se ha creado el rol']);
+        $permission = Permission::create($request->all());
+        return back()->with('info', ['success', 'Se ha creado el permiso']);
     }
 
     /**
@@ -60,10 +58,7 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
-
-        $permissions = $role->permissions()->get();
-        return view('admin.roles.show', compact('role','permissions'));
+        //
     }
 
     /**
@@ -74,9 +69,8 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        $permissions = Permission::get();
-        return view('admin.roles.edit', compact('role','permissions'));
+        $permission = Permission::find($id);
+        return view('admin.permissions.edit', compact('permission'));
     }
 
     /**
@@ -88,12 +82,8 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = Role::find($id);
-        $role->update($request->except('permissions'));
-        $role->permissions()->sync($request->get('permissions'));
-
-        return back()->with('info', ['success', 'Se ha actualizado el rol']);
-
+        $permission = Permission::find($id)->update();
+        return back()->with('info', ['success', 'Se ha actualizado el permiso']);
     }
 
     /**
@@ -104,7 +94,7 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::find($id)->delete();
-        return back()->with('info', ['warning', 'Se ha eliminado el rol']);
+        $permission = Permission::find($id)->delete();
+        return back()->with('info', ['warning', 'Se ha eliminado el permiso']);
     }
 }

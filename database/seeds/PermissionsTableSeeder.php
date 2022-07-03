@@ -15,22 +15,27 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create(['name'=> 'file.create']);
-        Permission::create(['name'=> 'file.store']);
-        Permission::create(['name'=> 'file.images']);
-        Permission::create(['name'=> 'file.videos']);
-        Permission::create(['name'=> 'file.documents']);
-        Permission::create(['name'=> 'file.audios']);
+        
+        //Roles
+        Permission::create(['name' => 'role.index', 'description' => 'Mostrar todos los roles']);
+        Permission::create(['name' => 'role.create', 'description' => 'Crear un nuevo rol']);
+        Permission::create(['name' => 'role.store', 'description' => 'Almacenar un nuevo rol']);
+        Permission::create(['name' => 'role.edit', 'description' => 'Editar un rol']);
+        Permission::create(['name' => 'role.update', 'description' => 'Actualizar un rol']);
+        Permission::create(['name' => 'role.show', 'description' => 'Ver detalles del rol']);
+        Permission::create(['name' => 'role.destroy', 'description' => 'Eliminar un rol']);
+
 
         $admin = Role::create(['name'=>'Admin']);
         $subscriber = Role::create(['name'=>'Suscriptor']);
 
         $admin->givePermissionTo(Permission::all());
-        $subscriber->givePermissionTo([
-            'file.create',
-            'file.store',
-            'file.images'
-        ]);
+
+       // $subscriber->givePermissionTo([
+         //   'file.create',
+           // 'file.store',
+           // 'file.images'
+        //]);
 
         $user= User::find(1);
         $user->assignRole('Admin');
