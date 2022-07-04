@@ -42,11 +42,12 @@
                         <th scope="row">
                             @if($document->extension == 'pdf' || $document->extension== 'PDF')
                             <a class="btn btn-primary" style="width: 55%;" target="_blank"
-                                href="{{ asset('storage') }}/{{ $document->folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
-                                    class="fas fa-eye"></i> Ver</a>
+                                href="{{ asset('storage') }}/{{ $folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
+                                
+                                class="fas fa-eye"></i> Ver</a>
                             @else
                             <a class="btn btn-success" style="width: 55%;" target="_blank"
-                                href="{{ asset('storage') }}/{{ $document->folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
+                                href="{{ asset('storage') }}/{{ $folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
                                     class="fas fa-download"></i> Descargar</a>
                             @endif
 

@@ -82,7 +82,8 @@ class PermissionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $permission = Permission::find($id)->update();
+        $permission = Permission::find($id);
+        $permission->update($request->all());
         return back()->with('info', ['success', 'Se ha actualizado el permiso']);
     }
 

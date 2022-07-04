@@ -91,7 +91,7 @@
                             <a href="{{ route('role.index') }}">Ver todos</a>
                         </li>
                         <li>
-                            <a href="#">Agregar rol</a>
+                            <a href="{{ route('role.create') }}">Agregar rol</a>
                         </li>
                     </ul>
                 </li>
@@ -101,10 +101,10 @@
                             class="fas fa-fingerprint"></i> Permisos</a>
                     <ul class="collapse list-unstyled" id="permissionSubmenu">
                         <li>
-                            <a href="#">Ver todos</a>
+                            <a href="{{ route('permission.index') }}">Ver todos</a>
                         </li>
                         <li>
-                            <a href="#">Agregar permiso</a>
+                            <a href="{{ route('permission.create') }}">Agregar permiso</a>
                         </li>
                     </ul>
                 </li>
@@ -114,10 +114,10 @@
                             class="fas fa-users"></i> Usuarios</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a href="#">Ver todos</a>
+                            <a href="{{route('user.index')}}">Ver todos</a>
                         </li>
                         <li>
-                            <a href="#">Agregar rol</a>
+                            <a href="{{route('user.create')}}">Agregar usuario</a>
                         </li>
                     </ul>
                 </li>
