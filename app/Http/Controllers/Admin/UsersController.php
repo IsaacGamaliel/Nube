@@ -35,7 +35,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -46,7 +47,19 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $user = new User();
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->username=$request->get('username');
+        $user->password = bcrypt($request->get('password'));
+        $image="user.svg";
+        $user->image = $image;
+        $user->save();
+
+        $user->roles()->sync($request->get('roles'));
+
+        return back()->with('info', ['success', 'Se ha creado el usuario']);
     }
 
     /**
@@ -70,7 +83,8 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::get();
+        return view('admin.users.edit', compact('roles', 'user'));
     }
 
     /**
@@ -83,8 +97,8 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->update($request->all());
-        //$User->permissions()->sync($request->get('permissions'));
+        $user->update($request->except('roles'));
+        $user->roles()->sync($request->get('roles'));
 
         return back()->with('info', ['success', 'Se ha actualizado los datos del usuario']);
 
@@ -98,6 +112,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id)->delete();
+        return back()->with('info', ['success', 'Se ha eliminado el usuario']);
     }
 }

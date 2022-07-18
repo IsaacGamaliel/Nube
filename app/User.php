@@ -33,6 +33,9 @@ class User extends Authenticatable
     return $this->hasMany(File::class);
     }
 
+    //public function setPasswordAttribute($password){
+      //  $this->attributes['password']= bcrypt($password);
+   // }
     /**
      * The attributes that should be cast to native types.
      *

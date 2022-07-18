@@ -1,6 +1,6 @@
 // Fonts
-//@import url('https://fonts.googleapis.com/css?family=Nunito');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:400,700');
+/*@import url('https://fonts.googleapis.com/css?family=Nunito');*/
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
 // Variables
 @import 'variables';
@@ -8,7 +8,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-//Font
+//Font Awesome
+
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
@@ -65,3 +66,68 @@ a.nav-link, .nav-item a, a.dropdown-item{
 	font-size: 1rem;
 }
 
+/* Stripe Button */
+
+button.stripe-button-el{
+	outline: none;
+	height: 40px;
+	text-align: center;
+	width: 100%;
+	border-radius: 5px;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.25s ease;
+	font-family: 'Raleway', sans-serif;
+	box-shadow: none;
+}
+
+.stripe-button-el span, button.stripe-button-el span {
+	background: #fff;
+	color: #6cb2eb;
+	border: solid 1.5px #6cb2eb;
+	font-family: 'Raleway', sans-serif;
+	font-size: 1rem;
+	box-shadow: none;
+	padding: 3px 12px!important;
+   height: 40px!important;
+   font-weight: 400;
+}
+
+.stripe-button-el span:hover, button.stripe-button-el span:hover{
+	background: #6cb2eb;
+	color: #fff;
+}
+
+.stripe-button-el:not(:disabled):active, .stripe-button-el.active{
+	background: #fff;
+}
+
+//Alerts
+
+.alert{
+	border-radius: 5px;
+	box-shadow: 1px 5px 9px 0 rgba(47,44,44,.2);
+	border: none;
+	margin: 10px 0;
+	font-size: 1rem;
+	color: #fff;
+	text-align: center;
+}
+
+.closebtn {
+	margin-left: 15px;
+	color: #fff;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	transition: .3s;
+}
+
+.closebtn:hover{
+	cursor: pointer;
+}
+
+.alert-danger{background-color: #ff3133;}
+.alert-success{background-color: #3cb878;}
+.alert-info{background-color: #318dff;}
+.alert-warning{background-color: #fcb03b;}

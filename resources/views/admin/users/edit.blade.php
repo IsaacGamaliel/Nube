@@ -24,7 +24,7 @@
         </div>
 
 
-       {{-- <div class="col-sm-6 mb-3">
+       <div class="col-sm-6 mb-3">
             <label class="ml-3">Ten cuidado con los roles que otorgas</label>
             <div class="form-group">
                 <ul>
@@ -44,7 +44,7 @@
                 </ul>
             </div>
         </div>
-    </div>--}}
+    </div>
 
     <button class="btn btn-outline-success" type="submit"><i class="fas fa-plus-circle"></i> Actualizar</button>
 

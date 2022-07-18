@@ -3,39 +3,61 @@
 @section('page', 'Crear un nuevo rol')
 
 @section('content')
+	
+<form class="was-validated" action="{{ route('user.store') }}" method="POST">
+	@csrf
+	<input type="hidden" name="_method" value="PATCH">
 
-    <form class="was-validated" action="{{ route('role.store') }}" method="POST">
-        @csrf
-        <input type="hidden" name="_method" value="PATCH">
+	<div class="form-row">
+		<div class="col-sm-6 mb-3">
+			<label for="UserName">Nombre</label>
+			<input type="text" name="name" class="form-control is-valid" id="UserName" placeholder="Nombre del usuario" required>
+			<div class="invalid-feedback">¡Debes agregar un nombre completo!</div>
+		</div>
 
+		<div class="col-sm-6 mb-3">
+			<label for="UserName">Username</label>
+			<input type="text" name="username" class="form-control is-valid" id="username" placeholder="Nombre del usuario" required>
+			<div class="invalid-feedback">¡Debes agregar un nombre de usuario!</div>
+		</div>
 
-        <div class="form-row">
-            <div class="col-sm-6 mb-3">
-                <label for="RoleName">Nombre del rol</label>
-                <input type="text" name="name" class="form-control is-valid" id="RoleName" placeholder="Nombre del Rol" required>
-                <div class="invalid-feedback">!Debes agregar un nombre!</div>
-            </div>
-            <div class="col-sm-6 mb-3">
-                <label class="ml-3">Ten cuidado con los permisos que otorgas!</label>
-                <div class="form-group">
-                    <ul>
-                        <div class="col-auto my-1">
-                            <div class="custom-control custom-checkbox mr-sm-2">
-                                @foreach ($permissions as $permission)
-                                    <li>
-                                        <input type="checkbox" name="permissions[]" class="custom-control-input" id="{{ $permission->id }}" value="{{ $permission->id }}">
-                                        <label class="custom-control-label" for="{{ $permission->id }}">{{$permission->description}}</label>
-                                    </li>
-                                @endforeach
-                            </div>
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </div>
+		<div class="col-sm-6 mb-3">
+			<label for="UserEmail">Correo electrónico</label>
+			<input type="email" name="email" class="form-control is-valid" id="UserEmail" placeholder="hola@cafeycodigo.com" required>
+			<div class="invalid-feedback">¡Debes agregar un correo electrónico!</div>
+		</div>
 
-        <button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i> Agregar</button>
+		<div class="col-sm-6 mb-3">
+			<label for="UserPassword">Contraseña</label>
+			<input type="password" name="password" class="form-control is-valid" id="UserPassword" required>
+			<div class="invalid-feedback">¡Debes agregar una contraseña!</div>
+		</div>
 
-    </form>
+		<div class="col-sm-6 mb-3">
+			<label for="UserImage">Imagen (por defecto)</label>
+			<input type="image" name="image" class="form-control" id="image" value="user.svg" disabled>
+		</div>
+		<div class="col-sm-6 mb-3">
+			<label class="ml-3">Ten cuidado con los permisos que otorgas</label>
+				<div class="form-group">
+					<ul>
+						<div class="col-auto my-1">
+							<div class="custom-control custom-checkbox mr-sm-2">
+								@foreach($roles as $role)
+									<li>
+										<input type="checkbox" name="roles[]" class="custom-control-input" id="{{ $role->id }}" value="{{ $role->id }}">
+										<label class="custom-control-label" for="{{ $role->id }}">{{ $role->name }}</label>
+									</li>
+								@endforeach
+							</div>
+						</div>
+					</ul>
+				</div>
+		</div>
+	</div>
+
+	<button class="btn btn-outline-success" type="submit"><i class="fas fa-plus-circle"></i> Agregar</button>
+	
+</form>
 
 @endsection

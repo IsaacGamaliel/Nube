@@ -55,6 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         try {
+            
             Validator::extend('alpha_espacio', function($attr, $value){
                 return preg_match('/^[\pL\s]+$/u', $value);
             });
@@ -71,7 +72,7 @@ class RegisterController extends Controller
                 'password' => ['required', 'string', 'min:6','max:10', 'confirmed','without_blanks'],
                 'image' => ['required','mimes:jpeg,jpg,png' ], 
             ],[
-               'name.alpha_espacio'=>'El campo Correo no debe contener espacios en blanco, numeros, caracteres',
+               'name.alpha_espacio'=>'El campo Nombre no debe tener numeros y caracteres',
                'email.unique'=>'Correo ya existe',
                'email.without_blanks' => 'El campo Correo no debe contener espacios en blanco.',
                'username.unique'=>'Correo ya existe',
@@ -79,8 +80,12 @@ class RegisterController extends Controller
                'password.without_blanks' => 'El campo Correo no debe contener espacios en blanco.',
                'image.mimes'=> 'Solo se aceptan formatos jpeg,jpg,png.',
                'password.min'=>'Minimo 6.',
-                'password.max'=>'maximo 10.',
-                'password.without_blanks'=>'No se permiten espacios en blanco.'
+               'password.max'=>'maximo 10.',
+               'password.without_blanks'=>'No se permiten espacios en blanco.',
+               'name.required'=>'No se permite enviar espacios en blanco',
+               'email.required'=>'No se permite enviar espacios en blanco',
+               'username.required'=>'No se permite enviar espacios en blanco',
+               'password.required'=>'No se permite enviar espacios en blanco',
             ]);
         } catch (\Throwable $th) {
             throw $th;

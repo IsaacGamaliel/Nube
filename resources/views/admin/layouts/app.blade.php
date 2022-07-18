@@ -20,7 +20,7 @@
 
 <body>
 
-
+    <div id='app'></div>
 
     <div class="wrapper">
         <!-- Sidebar Holder -->
@@ -138,48 +138,56 @@
             </form>
         </nav>
 
-         <!-- Page Content Holder -->
-    <div id="content">
+        <!-- Page Content Holder -->
+        <div id="content">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
 
-                <button type="button" id="sidebarCollapse" class="navbar-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
 
-                <div id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a>@yield('page')</a>
-                        </li>
-                    </ul>
+                    <div id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a>@yield('page')</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
 
-@include('admin.partials.alert')
-@include('admin.partials.error')
-
+            @include('admin.partials.alert')
+            @include('admin.partials.error')
 
 
-        @yield('content')
 
-        <script src="{{asset('js/slim.js')}}"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
+            @yield('content')
+
+            <script src="{{asset('js/slim.js')}}"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
                 $('#sidebarCollapse').on('click', function () {
                     $('#sidebar').toggleClass('active');
                     $(this).toggleClass('active');
                 });
             });
-        </script>
-
-        @yield('scripts')
+            </script>
 
 
+
+            <script src="{{ asset('js/bootstrap.min.js')}}"></script>
+
+
+
+
+
+            @yield('scripts')
+
+    </div>
 </body>
 
 </html>

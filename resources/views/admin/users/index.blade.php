@@ -36,7 +36,7 @@
 							<img src="{{ asset('Archivos') }}/{{ $user->image }}" width="35">
 						</th>
 						@endif
-						
+
 						<th scope="row">{{ $user->name }}</th>
 						<th scope="row">{{ $user->email }}</th>
 						<th scope="row">
