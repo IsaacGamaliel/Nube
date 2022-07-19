@@ -22,7 +22,7 @@
 		</div>
 		
 	</div>
-
+	<a class="btn btn-outline-success" href="{{ route('permission.index') }}"><i class="fas fa-arrow-circle-left"></i> Volver</a>
 	<button class="btn btn-outline-success" type="submit"><i class="fas fa-plus-circle"></i> Actualizar</button>
 	
 </form>

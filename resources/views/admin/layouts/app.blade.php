@@ -33,7 +33,7 @@
 
             <div class="container mt-4 mb-2">
                 <div class="mb-2">
-                    <img src="img/users/user.jpg" class="img-responsive" style="border-radius: 50%;" alt="" width="70">
+                    <img  class="img-responsive" style="border-radius: 50%;" alt="" width="70">
                 </div>
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">Wero miranda</div>
@@ -180,9 +180,6 @@
 
 
             <script src="{{ asset('js/bootstrap.min.js')}}"></script>
-
-
-
 
 
             @yield('scripts')

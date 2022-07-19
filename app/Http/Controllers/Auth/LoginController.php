@@ -44,9 +44,21 @@ class LoginController extends Controller
     public function username()
     {
         try {
+            $request = app('request');
+            Validator::extend('without_blanks', function($attr, $value){
+                return preg_match('/^\S*$/u', $value);
+            });
+            $request->validate([
+                'username'=> 'required|without_blanks',
+                'password'=>'required|without_blanks',
+                
+            ],[
+                'username.required'=>'Rquerido',
+                'password.required'=>'Requerido',
+                'password.without_blanks' => 'El campo Contraseña no debe contener espacios en blanco.',
+            ]);
            
             $emailOrUsername = request()->input('username');
-         
             $this->username = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
             request()->merge([$this->username => $emailOrUsername]);
             return property_exists($this, 'username') ? $this->username : 'email';

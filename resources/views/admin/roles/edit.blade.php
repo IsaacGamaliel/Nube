@@ -37,9 +37,9 @@
                 </div>
             </div>
         </div>
-
+        <a class="btn btn-outline-success" href="{{ route('role.index') }}"><i class="fas fa-arrow-circle-left"></i> Volver</a>
         <button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i> Actualizar</button>
-
+        
     </form>
 
 @endsection

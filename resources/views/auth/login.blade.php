@@ -19,20 +19,16 @@
                                 <label for="username" class="col-sm-4 col-form-label text-md-right">{{ __('Correo / Usuario') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="username" type="text" class="form-control{{ $errors->has('email') || $errors->has('username') ? ' is-invalid' : '' }}" name="username" minlength="5" maxlength="50" value="{{ old('username') }}" required autofocus>
+                                    <input id="username" type="text" class="form-control{{ $errors->has('email') || $errors->has('username') ? ' is-invalid' : '' }}" name="username" minlength="5" maxlength="51" value="{{ old('username') }}" required autofocus>
 
                                     @if ($errors->has('username'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('username') }}</strong>
+                                            <strong>Usuario o correo no existe</strong>
                                         </span>
                                     @endif
                                         
                                 
-                                    @if ($errors->has('email'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    @endif
+                                    
                                 </div>
                             </div>
 
@@ -44,7 +40,8 @@
 
                                     <script>
                                         bootstrapValidate(['#password','#username'],'required:Campo vacio')
-                                        bootstrapValidate('#password','min:6:Minimo 6|max:10:Maximo 10')
+                                        bootstrapValidate('#password','min:6:Minimo 6|max:11:Maximo 10')
+                                        bootstrapValidate('#username','min:5:Minimo 5|max:50:Maximo 50')
                                     </script>
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
@@ -90,4 +87,8 @@
       </div>
    </section>
 </main>
+@endsection
+
+@section('scripts')
+    
 @endsection
