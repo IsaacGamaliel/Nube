@@ -24,22 +24,22 @@ Route::patch('archivos/eliminar/{id}', 'FilesController@destroy')->name('file.de
 
 
 //Roles
-Route::get('roles', 'Admin\RolesController@index')->name('role.index');
-Route::get('roles/agregar', 'Admin\RolesController@create')->name('role.create');
-Route::patch('roles/agregar', 'Admin\RolesController@store')->name('role.store');
-Route::get('roles/{id}/editar', 'Admin\RolesController@edit')->name('role.edit');
-Route::get('roles/{id}', 'Admin\RolesController@show')->name('role.show');
-Route::patch('roles/{id}/editar', 'Admin\RolesController@update')->name('role.update');
-Route::patch('roles/{id}/eliminar', 'Admin\RolesController@destroy')->name('role.destroy');
+Route::get('roles', 'AdminRolesController@index')->name('role.index');
+Route::get('roles/agregar', 'AdminRolesController@create')->name('role.create');
+Route::patch('roles/agregar', 'AdminRolesController@store')->name('role.store');
+Route::get('roles/{id}/editar', 'AdminRolesController@edit')->name('role.edit');
+Route::get('roles/{id}', 'AdminRolesController@show')->name('role.show');
+Route::patch('roles/{id}/editar', 'AdminRolesController@update')->name('role.update');
+Route::patch('roles/{id}/eliminar', 'AdminRolesController@destroy')->name('role.destroy');
 
 //Permissions
 
-Route::get('permisos', 'Admin\PermissionsController@index')->name('permission.index');
-Route::get('permisos/agregar', 'Admin\PermissionsController@create')->name('permission.create');
-Route::patch('permisos/agregar', 'Admin\PermissionsController@store')->name('permission.store');
-Route::get('permisos/{id}/editar', 'Admin\PermissionsController@edit')->name('permission.edit');
-//Route::get('permisos/{id}', 'Admin\PermissionsController@show')->name('permission.show');
-Route::patch('permisos/{id}/editar', 'Admin\PermissionsController@update')->name('permission.update');
+Route::get('permisos', 'AdminPermissionsController@index')->name('permission.index');
+Route::get('permisos/agregar', 'AdminPermissionsController@create')->name('permission.create');
+Route::patch('permisos/agregar', 'AdminPermissionsController@store')->name('permission.store');
+Route::get('permisos/{id}/editar', 'AdminPermissionsController@edit')->name('permission.edit');
+//Route::get('permisos/{id}', 'AdminPermissionsController@show')->name('permission.show');
+Route::patch('permisos/{id}/editar', 'AdminPermissionsController@update')->name('permission.update');
 Route::patch('permisos/{id}/eliminar', 'Admin\PermissionsController@destroy')->name('permission.destroy');
 
 
@@ -52,5 +52,14 @@ Route::get('usuarios/{id}/editar', 'Admin\UsersController@edit')->name('user.edi
 Route::get('usuarios/{id}', 'Admin\UsersController@show')->name('user.show');
 Route::patch('usuarios/{id}/editar', 'Admin\UsersController@update')->name('user.update');
 Route::patch('usuarios/{id}/eliminar', 'Admin\UsersController@destroy')->name('user.destroy');
+
+//plans
+Route::get('planes', 'SubscriptionController@indexAdmin')->name('plan.index');
+Route::get('plan/agregar', 'SubscriptionController@create')->name('plan.create');
+Route::patch('plan/agregar', 'SubscriptionController@storeAdmin')->name('plan.store');
+Route::get('plan/{id}/editar', 'SubscriptionController@edit')->name('plan.edit');
+Route::get('plan/{id}', 'SubscriptionController@show')->name('plan.show');
+Route::patch('plan/{id}/editar', 'SubscriptionController@update')->name('plan.update');
+Route::patch('plan/{id}/eliminar', 'SubscriptionController@destroy')->name('plan.destroy');
 
 
