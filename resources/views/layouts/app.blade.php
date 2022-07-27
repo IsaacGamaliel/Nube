@@ -61,11 +61,21 @@
                         <a href="{{ route('login') }}" class="btn btn-outline-primary">Ingresar</a>
                     </li>
                     @else
-                    <li>
-                        <a href="{{ route('logout') }}" class="logout btn btn-outline-danger" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i> Cerrar
-                            sesión</a>
-                    </li>
+                    @if (Auth::user()->hasRole('Suscriptor|Admin'))
+                        <li class="nav-item">
+                        <a class="nav-link" style="color: #000;" href="{{ route('file.create') }}">Sube tus archivos</a>
+                        </li>
+                    @endif 
+                    @if (Auth::user()->hasRole('Admin'))
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #000;" href="{{ route('dashboard') }}">Panel Administrativo</a>
+                        </li>
+                    @endif
+                        <li>
+                            <a href="{{ route('logout') }}" class="logout btn btn-outline-danger" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i> Cerrar
+                                sesión</a>
+                        </li>
                     @endguest
                 </ul>
             </div>

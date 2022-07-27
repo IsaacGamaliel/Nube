@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->string('name');
             $table->string('type');
             $table->string('extension');
+            $table->string('folder')->nullable();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
 

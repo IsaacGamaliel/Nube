@@ -16,7 +16,10 @@
                         <th scope="col"></th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Subidos</th>
-                        <th scope="col">Ver</th>
+                        @if (Auth::user()->hasRole("Admin"))
+                         <th scope="col">Usuario</th>
+                        @endif
+                        <th scope="col" width="27%">Ver</th>
                         <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
@@ -39,14 +42,17 @@
                         </th>
                         <th scope="row">{{$document->name}}</th>
                         <th scope="row">{{$document->created_at->DiffForHumans()}}</th>
+                        @if (Auth::user()->hasRole("Admin"))
+                         <th scope="col">{{$document->user->name}}</th>
+                        @endif
                         <th scope="row">
                             @if($document->extension == 'pdf' || $document->extension== 'PDF')
                             <a class="btn btn-primary" style="width: 55%;" target="_blank"
-                                href="{{ asset('storage') }}/{{ $folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
+                                href="{{ asset('storage') }}/{{ $document->folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
                                     class="fas fa-eye"></i> Ver</a>
                             @else
                             <a class="btn btn-success" style="width: 55%;" target="_blank"
-                                href="{{ asset('storage') }}/{{ $folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
+                                href="{{ asset('storage') }}/{{ $document->folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i
                                     class="fas fa-download"></i> Descargar</a>
                             @endif
 
