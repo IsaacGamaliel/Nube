@@ -74,7 +74,7 @@ class SubscriptionController extends Controller
    public function showInvoice(Request $request, $invoiceId)
    {
       return $request->user()->downloadInvoice($invoiceId, [
-        'vendor'  => 'BuffaloSafe',
+        'vendor'  => '¡Nube',
         'product' => 'Suscripción en la plataforma',
       ]);
    }
