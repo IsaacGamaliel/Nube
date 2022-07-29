@@ -88,25 +88,14 @@ class FilesController extends Controller
             if (Storage::putFileAs( '/public/' . $this->getUserFolder() . '/' . $type . '/' , $file, $name . '.' . $ext)){
                   $uploadFile::create([ 'name' => $name, 'type' => $type, 'extension' => $ext, 'user_id' => Auth::id() ]); 
              }
-        
-            return back()->with('info', ['success', 'El archivo se ha subido exitosamente']);
+
        } //Aquí cierra el if de $type
         
        else {
             return back()->with('info', ['danger', '¡Error! No podemos subir ese tipo de archivo']);
        }
 
-        if(Storage::putFileAs('/public/' . $this->getUserFolder() . '/' . $type . '/', $file,
-        $name . '.' . $ext)){
-            $uploadFile::create([
-                'name'  =>$name,
-                'type'  =>$type,
-                'extension' =>$ext,
-                'folder' => $this->getUserFolder(),
-                'user_id' =>  Auth::id()
-            ]);
-        }
-
+       
         return back()->with('info',['success',' El archivo se ha subido correctamente']);
     }
 

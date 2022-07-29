@@ -19,7 +19,8 @@
                                 <label for="username" class="col-sm-4 col-form-label text-md-right">{{ __('Correo / Usuario') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="username" type="text" class="form-control{{ $errors->has('email') || $errors->has('username') ? ' is-invalid' : '' }}" name="username" minlength="5" maxlength="51" value="{{ old('username') }}" required autofocus>
+                                    <input id="username" type="text" 
+                                    class="form-control{{ $errors->has('email') || $errors->has('username') ? ' is-invalid' : '' }}" name="username" minlength="5" maxlength="51" value="{{ old('username') }}" required autofocus>
 
                                     @if ($errors->has('username'))
                                         <span class="invalid-feedback" role="alert">

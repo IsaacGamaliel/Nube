@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Plan;
+use App\User;
 
 class SubscriptionController extends Controller
 {
@@ -18,6 +19,33 @@ class SubscriptionController extends Controller
         $plans = Plan::all();
         return view('index', compact('plans'));
     }
+    public function subscriptions()
+   {
+      $subscriptions = Auth::user()->subscriptions;
+      return view('admin.subscriptions.index', compact('subscriptions'));
+   }
+
+   public function resume()
+   {
+      
+      $subscription = \request()->user()->subscription(\request('plan_name'));
+
+      if ($subscription->cancelled() && $subscription->onGracePeriod()) {
+         \request()->user()->subscription(\request('plan_name'))->resume();
+         return back()->with('info', ['success', 'La suscrpción continuará']);
+      }
+
+      return back();
+   }
+
+   public function cancel()
+   {
+      
+      Auth::user()->subscription(\request('plan_name'))->cancel();
+      return back()->with('info', ['success', 'La suscripción se ha cancelado']);
+   }
+
+
     
     /**
      * Store a newly created resource in storage.
@@ -35,4 +63,20 @@ class SubscriptionController extends Controller
         return back()->with('info', ['success', 'Ahora estas suscrito']);
 
     }
+
+    //Invoices
+
+   public function invoices()
+   {
+      $invoices = Auth::user()->invoices();
+      return view('admin.subscriptions.invoices', compact('invoices'));
+   }
+
+   public function showInvoice(Request $request, $invoiceId)
+   {
+      return $request->user()->downloadInvoice($invoiceId, [
+        'vendor'  => '¡Nube',
+        'product' => 'Suscripción en la plataforma',
+      ]);
+   }
 }

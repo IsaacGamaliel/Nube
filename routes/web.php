@@ -63,3 +63,22 @@ Route::patch('plan/{id}/editar', 'Admin\PlanController@update')->name('plan.upda
 Route::patch('plan/{id}/eliminar', 'Admin\PlanController@destroy')->name('plan.destroy');
 
 
+Route::middleware('auth')->group(function () {
+	//Subscriptions
+	Route::get('mis-suscripciones', 'SubscriptionController@subscriptions')->name('subscriptions.index');
+	Route::post('continuar', 'SubscriptionController@resume')->name('subscriptions.resume');
+	Route::post('cancelar', 'SubscriptionController@cancel')->name('subscriptions.cancel');
+
+	//Invoices
+
+	Route::get('mis-facturas', 'SubscriptionController@invoices')->name('invoices.index');
+
+	Route::get('mis-facturas/{invoice}', 'SubscriptionController@showInvoice')->name('invoices.show');
+
+	//Profile
+	Route::view('mi-perfil', 'admin.profile.index')->name('profile');
+
+
+});
+
+
