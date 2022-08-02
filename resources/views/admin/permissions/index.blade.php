@@ -3,7 +3,8 @@
 @section('page', 'Todos los permisos')
 
 @section('content')
-	
+@include('admin.partials.alert')
+@include('admin.partials.error')
 <div class="container">
 	<div class="row">
 
@@ -32,15 +33,15 @@
 							</th> --}}
 
 							<th scope="row">
-								<a class="btn btn-outline-primary" href="{{ route('permission.edit', $permission->id) }}"><i class="far fa-edit"></i> Editar</a>
+								<a class="btn btn-outline-primary" href="{{ route('permission.edit', Crypt::encrypt($permission->id)) }}"><i class="far fa-edit"></i> Editar</a>
 							</th>
 							<th scope="row">
-								<form action="{{ route('permission.destroy', $permission->id) }}" method="POST">
+								<form action="{{ route('permission.destroy',Crypt::encrypt($permission->id)) }}" method="POST">
 									@csrf
 									<input type="hidden" name="_method" value="PATCH">
 									<button class="btn btn-outline-danger" type="submit"><i class="fas fa-trash"></i> Eliminar</button>
 								</form>
-								
+
 							</th>
 						</tr>
 					</tbody>

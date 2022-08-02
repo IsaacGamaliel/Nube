@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class RolesController extends Controller
 {
@@ -46,10 +50,33 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create($request->except('permissions'));
-        $role->permissions()->sync($request->get('permissions'));
+        Validator::extend('alpha_espacio', function($attr, $value){
+            return preg_match('/^[\pL\s]+$/u', $value);
+        });
 
-        return back()->with('info', ['success', 'Se ha creado el rol']);
+        Validator::extend('without_blanks', function($attr, $value){
+            return preg_match('/^\S*$/u', $value);
+        });
+
+        $validator = Validator::make($request->all(),[
+            'name'=> 'required|without_blanks|unique:roles|alpha_espacio|min:3|max:10',
+        ],[
+            'name.required'=>'Rquerido',
+            'name.unique'=>'Nombre ya usado',
+            'name.without_blanks' => 'El campo no debe contener espacios en blanco.',
+            'name.alpha_espacio'=>'El campo Nombre no debe tener numeros y caracteres'
+        ]);
+
+
+        if ($validator->fails()) {
+
+            return back()->with('info', ['danger', '¡Error! Verifica los campo Nombre, campo vacio, contiene numero o ya esta en uso el nombre']);
+        }else{
+
+            $role = Role::create($request->except('permissions'));
+            $role->permissions()->sync($request->get('permissions'));
+            return back()->with('info', ['success', 'Se ha creado el rol']);
+        }
     }
 
     /**
@@ -60,9 +87,15 @@ class RolesController extends Controller
      */
     public function show($id)
     {
+     try {
+        $id =decrypt($id); //desencriptar tu variable
         $role = Role::find($id);
         $permissions = $role->permissions()->get();
         return view('admin.roles.show', compact('role', 'permissions'));
+      }catch (DecryptException $e) {
+        return view('errors.404');
+     }
+
     }
 
     /**
@@ -73,9 +106,15 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        $permissions = Permission::get();
-        return view('admin.roles.edit', compact('role', 'permissions'));
+        try {
+            $id =decrypt($id); //desencriptar tu variable
+            $role = Role::find($id);
+            $permissions = Permission::get();
+            return view('admin.roles.edit', compact('role', 'permissions'));
+        } catch (DecryptException $e) {
+            return view('errors.404');
+        }
+
     }
 
     /**
@@ -87,11 +126,39 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = Role::find($id);
-        $role->update($request->except('permissions'));
-        $role->permissions()->sync($request->get('permissions'));
+        try {
+            $id =decrypt($id);
 
-        return back()->with('info', ['success', 'Se ha actualizado el rol']);
+            Validator::extend('alpha_espacio', function($attr, $value){
+                return preg_match('/^[\pL\s]+$/u', $value);
+            });
+
+            Validator::extend('without_blanks', function($attr, $value){
+                return preg_match('/^\S*$/u', $value);
+            });
+
+            $validator = Validator::make($request->all(),[
+                'name'=> 'required|without_blanks|alpha_espacio|min:3|max:10',
+            ],[
+                'name.required'=>'Rquerido',
+                'name.without_blanks' => 'El campo no debe contener espacios en blanco.',
+                'name.alpha_espacio'=>'El campo Nombre no debe tener numeros y caracteres'
+            ]);
+
+            if ($validator->fails()) {
+                return back()->with('info', ['danger', '¡Error! Verifica los campo Nombre, campo vacio, contiene numero o ya esta en uso el nombre']);
+            }else{
+                $role = Role::find($id);
+                $role->update($request->except('permissions'));
+                $role->permissions()->sync($request->get('permissions'));
+                return back()->with('info', ['success', 'Se ha actualizado el rol']);
+
+            }
+
+        } catch (DecryptException $e) {
+            return view('errors.404');
+        }
+
     }
 
     /**
@@ -102,7 +169,13 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::find($id)->delete();
-        return back()->with('info', ['warning', 'Se ha eliminado el rol']);
+        try {
+            $id =decrypt($id);
+            $role = Role::find($id)->delete();
+            return back()->with('info', ['warning', 'Se ha eliminado el rol']);
+        } catch (DecryptException $e) {
+            return view('errors.404');
+        }
+
     }
 }

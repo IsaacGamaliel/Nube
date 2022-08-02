@@ -2,7 +2,8 @@
 @section('page', 'Agregar archivo')
 
 @section('content')
-	
+@include('admin.partials.alert')
+   @include('admin.partials.error')
 	<form action="{{ route('file.store') }}" method="POST" enctype="multipart/form-data">
 		@csrf
 
@@ -19,7 +20,9 @@
 				<button type="submit" class="btn btn-primary file">Subir archivo</button>
 			</div>
 		</div>
-		
+
 	</form>
+
+
 
 @endsection

@@ -26,7 +26,7 @@
          </div>
 
          <div class="col-sm-12 col-md-6 d-none d-md-none d-lg-block shadow">
-            <div class="container"><img class="w-100 img-home" src="{{ asset('img/admin.png')}}">
+            <div class="container"><img class="w-100 img-home" src="{{ asset('img/admin.jpeg')}}">
             </div>
          </div>
       </div>
@@ -86,10 +86,10 @@
 
                                         data-amount="{{ $plan->amount }}"
                                         data-name="Suscripción a ¡Nube"
-                                        data-description="Suscripción mensual"
+                                        data-description="Suscripción"
                                         data-label="Seleccionar plan"
                                         data-email="{{ Auth()->user()->email }}"
-                                        data-image="{{ asset('img/logo.svg') }}"
+                                        data-image="{{ asset('img/logito_Dark.png') }}"
                                         data-locale="auto">
                                       </script>
                                     </form>

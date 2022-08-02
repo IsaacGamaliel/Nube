@@ -4,22 +4,27 @@
 
 @section('content')
 
+@include('admin.partials.alert')
+@include('admin.partials.error')
+
 <div class="container">
   <div class="row">
     @forelse($images as $image)
 
       <div class="col-sm-6 col-md-4 mt-4">
 
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="{{ asset('storage') }}/{{ $folder }}/image/{{ $image->name }}.{{ $image->extension }}" alt="{{ $image->name }}">
+        <div class="card" style="width: 16rem;">
+          <img class="card-img-top"
+                src="{{ asset('storage') }}/{{ $folder }}/image/{{ $image->name }}.{{ $image->extension }}"
+                alt="{{ $image->name }}">
           <div class="card-body">
             <a href="{{ asset('storage') }}/{{ $folder }}/image/{{ $image->name }}.{{ $image->extension }}" target="_blank" class="btn btn-primary"><i class="fas fa-eye"></i> Ver </a>
 
-            <a class="btn btn-danger pull-right text-white" data-toggle="modal" data-target="#deleteModal" data-file-id={{ $image->id }}><i class="fas fa-trash"></i> Eliminar</a> 
+            <a class="btn btn-danger pull-right text-white" data-toggle="modal" data-target="#deleteModal" data-file-id={{ $image->id }}><i class="fas fa-trash"></i> Eliminar</a>
 
           </div>
         </div>
-        
+
       </div>
 
     @empty
@@ -36,6 +41,7 @@
 
   <!-- Modal -->
   @include('admin.partials.modals.files')
+
 
 @endsection
 

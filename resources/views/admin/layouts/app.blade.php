@@ -16,19 +16,27 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+
+    <script src="{{asset('js/bootstrap-validate.js') }}" ></script>
 </head>
 <body>
+    <div id='app'></div>
   <div class="wrapper">
       <!-- Sidebar Holder -->
       <nav id="sidebar">
-          <a class="navbar-brand ml-4 pt-4" href="#">
-             <img src="{{ asset('img/logo-white.svg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+          <a class="navbar-brand ml-4 pt-4" href="/">
+             <img src="{{ asset('img/logo_Sin_fondo.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
           ¡Nube
           </a>
 
         <div class="container mt-4 mb-2">
           <div class="mb-2">
-          <img src="{{ asset('img/user.svg')}}" class="img-responsive" style="border-radius: 50%;" alt="" width="70">
+            @if (Auth::user()->image == "user.svg")
+            <img src="{{ asset('img/user.svg')}}" class="img-responsive" style="border-radius: 50%;" alt="" width="70">
+            @else
+            <img src="{{ asset('Archivos') }}/{{ Auth::user()->image }}" class="img-responsive" style="border-radius: 50%;" alt="" width="70">
+            @endif
+
         </div>
         <div class="profile-usertitle">
           <div class="profile-usertitle-name">{{Auth::user()->name}}</div>
@@ -45,9 +53,9 @@
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
           @csrf
       </form>
-     
 
-      <!-- Page Content Holder --> 
+
+      <!-- Page Content Holder -->
       <div id="content">
 
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -69,10 +77,9 @@
               </div>
           </nav>
 
-   
 
-   @include('admin.partials.alert')
-   @include('admin.partials.error')
+
+   
 
 
    @yield('content')
@@ -91,11 +98,10 @@
    <script src="{{ asset('js/bootstrap.min.js')}}"></script>
 
 
-   @yield('scripts') 
+   @yield('scripts')
 
 
 </div>
 
    </body>
 </html>
-

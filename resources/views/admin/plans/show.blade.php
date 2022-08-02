@@ -3,7 +3,8 @@
 @section('page', 'Detalles del usuario')
 
 @section('content')
-
+@include('admin.partials.alert')
+@include('admin.partials.error')
 	<div class="form-row">
 		<div class="col-sm-6 mb-3">
 			<label for="PlanName">Nombre del plan</label>

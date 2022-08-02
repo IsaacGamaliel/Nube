@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Validator;
+
 
 class PermissionsController extends Controller
 {
@@ -42,8 +46,25 @@ class PermissionsController extends Controller
      */
     public function store(Request $request)
     {
+
+        Validator::extend('without_blanks', function($attr, $value){
+            return preg_match('/^\S*$/u', $value);
+        });
+        $request->validate([
+            'name'=> 'required|without_blanks|unique:permissions',
+            'description'=> 'required|alpha'
+        ],[
+            'name.required'=>'Rquerido',
+            'name.unique'=>'Nombre ya usado',
+            'name.without_blanks' => 'El campo no debe contener espacios en blanco.',
+            'description.required'=>'Rquerido.',
+            'description.alpha' => 'El campo no debe contener numeros ni caracteres.',
+        ]);
+
         $permission = Permission::create($request->all());
+
         return back()->with('info', ['success', 'Se ha creado el permiso']);
+
     }
 
     /**
@@ -65,10 +86,15 @@ class PermissionsController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::find($id);
-        return view('admin.permissions.edit', compact('permission'));
-    }
+        try {
+            $id =decrypt($id);
+            $permission = Permission::find($id);
+            return view('admin.permissions.edit', compact('permission'));
+        } catch (DecryptException $e) {
+            return view('errors.404');
+        }
 
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -78,9 +104,27 @@ class PermissionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $permission = Permission::find($id);
-        $permission->update($request->all());
-        return back()->with('info', ['success', 'Se ha actualizado el permiso']);
+        try {
+            $id =decrypt($id);
+            Validator::extend('without_blanks', function($attr, $value){
+                return preg_match('/^\S*$/u', $value);
+            });
+            $request->validate([
+                'name'=> 'required|without_blanks',
+                'description'=> 'required|alpha'
+            ],[
+                'name.required'=>'Rquerido',
+                'name.without_blanks' => 'El campo no debe contener espacios en blanco.',
+                'description.required'=>'Rquerido.',
+                'description.alpha' => 'El campo no debe contener numeros ni caracteres.',
+            ]);
+            $permission = Permission::find($id);
+            $permission->update($request->all());
+            return back()->with('info', ['success', 'Se ha actualizado el permisos']);
+        } catch (DecryptException $e) {
+            return view('errors.404');
+        }
+
     }
 
     /**
@@ -91,7 +135,13 @@ class PermissionsController extends Controller
      */
     public function destroy($id)
     {
-        $permission = Permission::find($id)->delete();
-        return back()->with('info', ['warning', 'Se ha eliminado el permiso']);
+        try {
+            $id =decrypt($id);
+            $permission = Permission::find($id)->delete();
+            return back()->with('info', ['warning', 'Se ha eliminado el permiso']);
+        } catch (DecryptException $e) {
+            return view('errors.404');
+        }
+
     }
 }

@@ -3,8 +3,9 @@
 @section('page', 'Editar datos del usuario')
 
 @section('content')
-	
-<form class="was-validated" action="{{ route('user.update', $user->id) }}" method="POST">
+@include('admin.partials.alert')
+
+<form class="was-validated" action="{{ route('user.update',Crypt::encrypt($user->id)) }}" method="POST">
 	@csrf
 	@method('PATCH')
 
@@ -13,12 +14,22 @@
 			<label for="UserName">Nombre del usuario</label>
 			<input type="text" name="name" class="form-control is-valid" id="UserName" value="{{ $user->name }}" required>
 			<div class="invalid-feedback">¡No puedes dejar el usuario sin nombre!</div>
+            @if ($errors->has('name'))
+            <span class="invalid-feedback d-block" role="alert">
+                <strong>{{ $errors->first('name') }}</strong>
+            </span>
+            @endif
 		</div>
 
 		<div class="col-sm-6 mb-3">
 			<label for="UserEmail">Email del usuario</label>
 			<input type="text" name="email" class="form-control is-valid" id="UserEmail" value="{{ $user->email }}" required>
 			<div class="invalid-feedback">¡No puedes dejar el usuario sin email!</div>
+            @if ($errors->has('email'))
+                <span class="invalid-feedback d-block" role="alert">
+                <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
 		</div>
 
 
@@ -32,7 +43,7 @@
 									<li>
 										<input type="checkbox" name="roles[]" class="custom-control-input" id="{{ $role->id }}" value="{{ $role->id }}"
 											@if($user->roles->contains($role)) checked
-											@endif 
+											@endif
 										>
 										<label class="custom-control-label" for="{{ $role->id }}">{{ $role->name }}</label>
 									</li>
@@ -44,8 +55,12 @@
 		</div>
 	</div>
 
-	<button class="btn btn-outline-success" type="submit"><i class="fas fa-plus-circle"></i> Actualizar</button>
-	
+	<button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i> Actualizar</button>
+    <br>
+    <br>
+    <a class="btn btn-outline-success" href="{{ route('user.index') }}"><i class="fas fa-arrow-circle-left"></i> Volver</a>
+
+
 </form>
 
 @endsection

@@ -3,7 +3,8 @@
 @section('page', 'Mis facturas')
 
 @section('content')
-
+@include('admin.partials.alert')
+@include('admin.partials.error')
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12 table-responsive">

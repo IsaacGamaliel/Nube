@@ -3,7 +3,8 @@
 @section('page', 'Detalles del usuario')
 
 @section('content')
-
+@include('admin.partials.alert')
+@include('admin.partials.error')
 	<div class="row mb-3">
 		<div class="col-sm-12">
 			<div class="mt-5 pb-5">
@@ -12,8 +13,8 @@
 				<p class="text-center">{{ $user->email }}</p>
 
 				<div class="d-flex row-flex justify-content-center">
-					<a class="btn btn-outline-success" href="{{ route('user.edit', $user->id) }}"><i class="fas fa-edit"></i> Editar perfil</a>
-				</div> 
+					<a class="btn btn-outline-success" href="{{ route('user.edit', Crypt::encrypt($user->id)) }}"><i class="fas fa-edit"></i> Editar perfil</a>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -58,7 +58,7 @@ class FilesController extends Controller
 			->OrderBy('id', 'desc')->where('type', '=', 'document')->get();
 		}
 
-		
+
 		$folder = str_slug(Auth::user()->name . '-' . Auth::id());
 			return view('admin.files.type.documents', compact('documents', 'folder'));
 
@@ -81,15 +81,20 @@ class FilesController extends Controller
 		$ext = $file->getClientOriginalExtension();
 		$type = $this->getType($ext);
 
-		if(Storage::putFileAs('/public/' . $this->getUserFolder() . '/' . $type . '/', $file, $name . '.' . $ext)){
-			$uploadFile::create([
-				'name' 		=> $name,
-				'type' 		=> $type,
-				'extension' => $ext,
-				'folder'		=> $this->getUserFolder(),
-				'user_id' 	=> Auth::id()
-			]);
-		}
+        if ($type ) {
+            if(Storage::putFileAs('/public/' . $this->getUserFolder() . '/' . $type . '/', $file, $name . '.' . $ext)){
+                $uploadFile::create([
+                    'name' 		=> $name,
+                    'type' 		=> $type,
+                    'extension' => $ext,
+                    'folder'	=> $this->getUserFolder(),
+                    'user_id' 	=> Auth::id()
+                ]);
+            }
+
+        }else{
+            return back()->with('info', ['danger', '¡Error! No podemos subir ese tipo de archivo']);
+        }
 
 		return back()->with('info', ['success', 'El archivo se ha subido correctamente']);
 	}
@@ -98,7 +103,7 @@ class FilesController extends Controller
 	public function destroy(Request $request)
    {
    	$file = File::findOrFail($request->file_id);
-  	
+
    	if(Storage::disk('local')->exists('/public/' . $this->getUserFolder() . '/' . $file->type . '/' . $file->name . '.' . $file->extension )){
 
    		if(Storage::disk('local')->delete('/public/' . $this->getUserFolder() . '/' . $file->type . '/' . $file->name . '.' . $file->extension )){
@@ -109,7 +114,7 @@ class FilesController extends Controller
    		}
    	}
    }
-   
+
 	private function getType($ext)
 	{
 		if(in_array($ext, $this->img_ext))
@@ -140,4 +145,6 @@ class FilesController extends Controller
 		$folder = Auth::user()->name . '-' . Auth::id();
 		return str_slug($folder);
 	}
+
+    
 }

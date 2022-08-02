@@ -4,6 +4,8 @@
 
 @section('content')
 
+@include('admin.partials.alert')
+   @include('admin.partials.error')
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12 table-responsive">
@@ -45,12 +47,12 @@
 								@else
 									<a class="btn btn-success" style="width: 55%;" target="_blank" href="{{ asset('storage') }}/{{ $document->folder }}/document/{{ $document->name }}.{{ $document->extension }}"><i class="fas fa-download"></i> Descargar</a>
 								@endif
-								
+
 							</th>
 							<th scope="row">
 
-								<a class="btn btn-danger text-white" data-toggle="modal" data-target="#deleteModal" data-file-id={{ $document->id }}><i class="fas fa-trash"></i> Eliminar</a> 
-							
+								<a class="btn btn-danger text-white" data-toggle="modal" data-target="#deleteModal" data-file-id={{ $document->id }}><i class="fas fa-trash"></i> Eliminar</a>
+
 							</th>
 						</tr>
 					</tbody>
@@ -69,6 +71,7 @@
 
 <!-- Modal -->
 	@include('admin.partials.modals.files')
+
 
 @endsection
 

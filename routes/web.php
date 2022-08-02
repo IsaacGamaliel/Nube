@@ -15,6 +15,7 @@
 Route::get('/', 'SubscriptionController@index')->name('home');
 Route::post('/', 'SubscriptionController@store')->name('subscription.store');
 Route::view('/seguridad', 'secure')->name('secure');
+Route::view('/preguntas-frecuentes', 'preguntas')->name('preguntas');
 
 //Auth
 Auth::routes();
@@ -105,6 +106,9 @@ Route::middleware('auth')->group(function () {
 
 	//Profile
 	Route::view('mi-perfil', 'admin.profile.index')->name('profile');
+
+    Route::get('usuario/{id}/editar', 'HomeController@edit')->name('usuario.edit');
+    Route::patch('usuario/{id}/editar', 'HomeController@update')->name('usuario.update');
 
 
 });

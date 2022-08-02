@@ -3,8 +3,9 @@
 @section('page', 'Editar datos del usuario')
 
 @section('content')
-	
-<form class="was-validated" action="{{ route('plan.update', $plan->id) }}" method="POST">
+@include('admin.partials.alert')
+
+<form class="was-validated" action="{{ route('plan.update',Crypt::encrypt($plan->id)) }}" method="POST">
 	@csrf
 	@method('PATCH')
 
@@ -71,9 +72,12 @@
 			<input type="text" name="amount" class="form-control is-valid" id="btnAmount" value="{{ $plan->amount }}" required>
 			<div class="invalid-feedback">¡Debes agregar un monto!</div>
 		</div>
+    </div>
+	<button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i> Actualizar</button>
+    <br>
+    <br>
+    <a class="btn btn-outline-success" href="{{ route('plan.index') }}"><i class="fas fa-arrow-circle-left"></i> Volver</a>
 
-	<button class="btn btn-outline-success" type="submit"><i class="fas fa-plus-circle"></i> Actualizar</button>
-	
 </form>
 
 @endsection

@@ -3,7 +3,8 @@
 @section('page', 'Todos los roles')
 
 @section('content')
-	
+@include('admin.partials.alert')
+@include('admin.partials.error')
 <div class="container">
 	<div class="row">
 
@@ -28,19 +29,20 @@
 							<th scope="row">{{ $role->id }}</th>
 							<th scope="row">{{ $role->name }}</th>
 							<th scope="row">
-								<a class="btn btn-outline-success" href="{{ route('role.show', $role->id) }}"><i class="fas fa-eye"></i> Ver</a>
+
+								<a class="btn btn-outline-success" href="{{ route('role.show',Crypt::encrypt($role->id )) }}"><i class="fas fa-eye"></i> Ver</a>
 							</th>
 
 							<th scope="row">
-								<a class="btn btn-outline-primary" href="{{ route('role.edit', $role->id) }}"><i class="far fa-edit"></i> Editar</a>
+								<a class="btn btn-outline-primary" href="{{ route('role.edit', Crypt::encrypt($role->id)) }}"><i class="far fa-edit"></i> Editar</a>
 							</th>
 							<th scope="row">
-								<form action="{{ route('role.destroy', $role->id) }}" method="POST">
+								<form action="{{ route('role.destroy', Crypt::encrypt($role->id))}}" method="POST">
 									@csrf
 									<input type="hidden" name="_method" value="PATCH">
 									<button class="btn btn-outline-danger" type="submit"><i class="fas fa-trash"></i> Eliminar</button>
 								</form>
-								
+
 							</th>
 						</tr>
 					</tbody>

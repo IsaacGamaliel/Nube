@@ -3,6 +3,8 @@
 @section('page', 'Audios')
 
 @section('content')
+@include('admin.partials.alert')
+   @include('admin.partials.error')
 
 <div class="container">
 	<div class="row">
@@ -11,7 +13,7 @@
 				<audio src="{{ asset('storage') }}/{{ $folder }}/audio/{{ $audio->name }}.{{ $audio->extension }}" controls>
 				</audio>
 
-				<a class="btn btn-danger pull-right mt-1 text-white" data-toggle="modal" data-target="#deleteModal" data-file-id={{ $audio->id }}><i class="fas fa-trash"></i> Eliminar</a> 
+				<a class="btn btn-danger pull-right mt-1 text-white" data-toggle="modal" data-target="#deleteModal" data-file-id={{ $audio->id }}><i class="fas fa-trash"></i> Eliminar</a>
 			</div>
 		@empty
 			<div class="container mb-3">
@@ -26,6 +28,8 @@
 
 	<!-- Modal -->
 	@include('admin.partials.modals.files')
+
+
 
 @endsection
 

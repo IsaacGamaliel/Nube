@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -37,13 +38,36 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    //Creacion de funcion para iniciar sesion con usuario/contraseña
     public function username()
     {
-        $emailOrUsername = request()->input('username');
-        $this->username = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        try {
 
-        request()->merge([$this->username => $emailOrUsername]);
+            $request = app('request');
+            Validator::extend('without_blanks', function($attr, $value){
+                return preg_match('/^\S*$/u', $value);
+            });
+            $request->validate([
+                'username'=> 'required|without_blanks',
+                'password'=>'required|without_blanks',
 
-        return property_exists($this, 'username') ? $this->username : 'email';
+            ],[
+                'username.without_blanks'=>'El campo Usuari/Correo no debe contener espacios en blanco.',
+                'username.required'=>'Reuerido',
+                'password.required'=>'Requerido',
+                'password.without_blanks' => 'El campo Contraseña no debe contener espacios en blanco.',
+            ]);
+            $emailOrUsername = request()->input('username');
+            $this->username = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+            request()->merge([$this->username => $emailOrUsername]);
+
+            return property_exists($this, 'username') ? $this->username : 'email';
+
+        } catch (Exception $e) {
+
+            return $e->getMessage();
+        }
+
     }
 }

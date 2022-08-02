@@ -4,6 +4,8 @@
 
 @section('content')
 
+@include('admin.partials.alert')
+@include('admin.partials.error')
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12 table-responsive">
@@ -38,7 +40,7 @@
 							</th>
 							<th scope="row">
 
-								<a class="btn btn-danger text-white" data-toggle="modal" data-target="#deleteModal" data-file-id={{ $video->id }}><i class="fas fa-trash"></i> Eliminar</a> 
+								<a class="btn btn-danger text-white" data-toggle="modal" data-target="#deleteModal" data-file-id={{ $video->id }}><i class="fas fa-trash"></i> Eliminar</a>
 							</th>
 						</tr>
 					</tbody>
@@ -58,6 +60,7 @@
 
 <!-- Modal -->
 	@include('admin.partials.modals.files')
+
 
 @endsection
 

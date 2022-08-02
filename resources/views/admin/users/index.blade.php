@@ -3,7 +3,8 @@
 @section('page', 'Todos los usuarios')
 
 @section('content')
-	
+@include('admin.partials.alert')
+@include('admin.partials.error')
 <div class="container">
 	<div class="row">
 
@@ -26,21 +27,27 @@
 				<tbody>
 					@foreach($users as $user)
 						<tr>
-							<th scope="row">
-								<img src="{{ asset('img') }}/{{ $user->image }}" width="35">
-							</th>
+							@if ($user->image == "user.svg")
+                                <th scope="row">
+                                    <img src="{{ asset('img') }}/{{ $user->image }}" width="35">
+                                </th>
+						    @else
+                                <th scope="row">
+                                    <img src="{{ asset('Archivos') }}/{{ $user->image }}" width="35">
+                                </th>
+						    @endif
 
 							<th scope="row">{{ $user->name }}</th>
 							<th scope="row">{{ $user->email }}</th>
 							<th scope="row">
-								<a class="btn btn-outline-success" href="{{ route('user.show', $user->id) }}"><i class="fas fa-eye"></i> Ver</a>
+								<a class="btn btn-outline-success" href="{{ route('user.show',Crypt::encrypt($user->id)) }}"><i class="fas fa-eye"></i> Ver</a>
 							</th>
 
 							<th scope="row">
-								<a class="btn btn-outline-primary" href="{{ route('user.edit', $user->id) }}"><i class="far fa-edit"></i> Editar</a>
+								<a class="btn btn-outline-primary" href="{{ route('user.edit',Crypt::encrypt($user->id))}}"><i class="far fa-edit"></i> Editar</a>
 							</th>
 							<th scope="row">
-								<form action="{{ route('user.destroy', $user->id) }}" method="POST">
+								<form action="{{ route('user.destroy',Crypt::encrypt($user->id)) }}" method="POST">
 									@csrf
 									<input type="hidden" name="_method" value="PATCH">
 									<button class="btn btn-outline-danger" type="submit"><i class="fas fa-trash"></i> Eliminar</button>

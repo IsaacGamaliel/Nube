@@ -5,6 +5,8 @@
 @endif
 
 @if(Auth()->user()->hasRole('Admin|Suscriptor'))
+
+@if (Auth()->user()->hasRole('Suscriptor'))
 <li>
    <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-user-circle"></i> Mi perfil</a>
       <ul class="collapse list-unstyled" id="profileSubmenu">
@@ -12,10 +14,11 @@
             <a href="{{route('profile')}}">Ver mi perfil</a>
          </li>
          <li>
-            <a href="#">Actualizar perfil</a>
+            <a href="{{route('usuario.edit',Crypt::encrypt( Auth::user()->id ))}}">Actualizar perfil</a>
          </li>
       </ul>
 </li>
+@endif
 <li>
    <a href="#filesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-upload"></i> Mis archivos</a>
    <ul class="collapse list-unstyled" id="filesSubmenu">
@@ -37,13 +40,15 @@
    </ul>
 </li>
 
-<li>
-   <a href="{{ route('subscriptions.index') }}"><i class="fas fa-fire"></i> Suscripciones</a>
-</li>
 
+@if (Auth()->user()->hasRole('Suscriptor'))
+<li>
+    <a href="{{ route('subscriptions.index') }}"><i class="fas fa-fire"></i> Suscripciones</a>
+ </li>
 <li>
    <a href="{{route('invoices.index')}}"><i class="fas fa-file-invoice"></i> Facturas</a>
 </li>
+@endif
 @endif
 
 @if(Auth()->user()->hasRole('Admin'))
@@ -98,14 +103,14 @@
 @endif
 
 <li>
-   <a href="mailto:hola@cafeycodigo.com"><i class="far fa-question-circle"></i> Soporte</a>
+   <a href="mailto:inube@gmail.com"><i class="far fa-question-circle"></i> Soporte</a>
 </li>
-    
+
 </ul>
 
 <ul class="list-unstyled CTAs">
    <li>
-      <a href="{{ route('logout') }}" class="logout" 
-      onclick="event.preventDefault(); 
+      <a href="{{ route('logout') }}" class="logout"
+      onclick="event.preventDefault();
       document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i> Cerrar sesión</a>
    </li>

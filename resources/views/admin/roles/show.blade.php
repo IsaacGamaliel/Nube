@@ -3,7 +3,8 @@
 @section('page', 'Detalles del rol')
 
 @section('content')
-
+@include('admin.partials.alert')
+@include('admin.partials.error')
 	<div class="form-row">
 		<div class="col-sm-6 mb-3">
 			<label for="RoleName">Nombre del rol</label>

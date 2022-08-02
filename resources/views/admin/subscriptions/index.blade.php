@@ -3,7 +3,8 @@
 @section('page', 'Mis suscripciones')
 
 @section('content')
-
+@include('admin.partials.alert')
+@include('admin.partials.error')
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12 table-responsive">
@@ -28,7 +29,7 @@
 							<th scope="row">
 								{{ $subscription->ends_at ? $subscription->ends_at->DiffForHumans() : 'La suscripción está activa' }}
 							</th>
-							
+
 							<th scope="row">
 								@if($subscription->ends_at)
 									<form action="{{ route('subscriptions.resume') }}" method="POST">
@@ -43,7 +44,7 @@
 										<button class="btn btn-danger">Cancelar</button>
 									</form>
 								@endif
-							
+
 							</th>
 						</tr>
 					</tbody>

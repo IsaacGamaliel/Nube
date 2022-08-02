@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Plan;
+use App\User;
+use Stripe;
+use Session;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -28,7 +31,7 @@ class SubscriptionController extends Controller
 
    public function resume()
    {
-      
+
       $subscription = \request()->user()->subscription(\request('plan_name'));
 
       if ($subscription->cancelled() && $subscription->onGracePeriod()) {
@@ -41,7 +44,7 @@ class SubscriptionController extends Controller
 
    public function cancel()
    {
-      
+
       Auth::user()->subscription(\request('plan_name'))->cancel();
       return back()->with('info', ['success', 'La suscripción se ha cancelado']);
    }
@@ -52,15 +55,20 @@ class SubscriptionController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+
+   public function pasarela(){
+        return view('createSuscripcion');
+   }
+
    public function store(Request $request)
    {
-      
+
       $token = $request->get('stripeToken');
       $subscription = $request->get('plan_type');
+
       Auth()->user()->newSubscription('main', $subscription)->create($token);
-     
       Auth()->user()->assignRole('Suscriptor');
-      return back()->with('info', ['success', 'Ahora estás suscrito.']);
+        return back()->with('info', ['success', 'Ahora estás suscrito.']);
    }
 
    //Invoices
@@ -78,8 +86,8 @@ class SubscriptionController extends Controller
         'product' => 'Suscripción en la plataforma',
       ]);
    }
-  
 
 
-   
+
+
 }
