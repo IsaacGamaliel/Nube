@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
+use Auth;
 
 class RolesController extends Controller
 {
@@ -28,6 +29,7 @@ class RolesController extends Controller
     public function index()
     {
         $roles = Role::all();
+
         return view('admin.roles.index', compact('roles'));
     }
 

@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
 
 /*@import url('https://fonts.googleapis.com/css?family=Nunito');*/
 
@@ -21403,7 +21403,7 @@ button.stripe-button-el span:hover {
   border: none;
   margin: 10px 0;
   font-size: 1rem;
-  color: #fff;
+  color: black;
   text-align: center;
 }
 

@@ -11,7 +11,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Auth;
 class UsersController extends Controller
 {
     public function __construct()
@@ -29,7 +29,9 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.users.index', compact('users'));
+        $usuario = Auth::user()->username;
+   
+        return view('admin.users.index', compact('users','usuario'));
     }
 
     /**
@@ -173,7 +175,7 @@ class UsersController extends Controller
         ]);
 
             $user = User::find($id);
-            dd($request->get('roles'));
+            //dd($request->get('roles'));
             $user->update($request->except('roles'));
             $user->roles()->sync($request->get('roles'));
 

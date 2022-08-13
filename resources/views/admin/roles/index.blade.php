@@ -25,25 +25,32 @@
 				</thead>
 				<tbody>
 					@forelse($roles as $role)
+
 						<tr>
-							<th scope="row">{{ $role->id }}</th>
-							<th scope="row">{{ $role->name }}</th>
-							<th scope="row">
+                            @if ( $role->name == 'Admin')
 
-								<a class="btn btn-outline-success" href="{{ route('role.show',Crypt::encrypt($role->id )) }}"><i class="fas fa-eye"></i> Ver</a>
-							</th>
+                            @else
+                            <th scope="row">{{ $role->id }}</th>
+                                <th scope="row">{{ $role->name }}</th>
+                                <th scope="row">
 
-							<th scope="row">
-								<a class="btn btn-outline-primary" href="{{ route('role.edit', Crypt::encrypt($role->id)) }}"><i class="far fa-edit"></i> Editar</a>
-							</th>
-							<th scope="row">
-								<form action="{{ route('role.destroy', Crypt::encrypt($role->id))}}" method="POST">
-									@csrf
-									<input type="hidden" name="_method" value="PATCH">
-									<button class="btn btn-outline-danger" type="submit"><i class="fas fa-trash"></i> Eliminar</button>
-								</form>
+                                    <a class="btn btn-outline-success" href="{{ route('role.show',Crypt::encrypt($role->id )) }}"><i class="fas fa-eye"></i> Ver</a>
+                                </th>
 
-							</th>
+                                <th scope="row">
+                                    <a class="btn btn-outline-primary" href="{{ route('role.edit', Crypt::encrypt($role->id)) }}"><i class="far fa-edit"></i> Editar</a>
+                                </th>
+                                <th scope="row">
+                                    <form action="{{ route('role.destroy', Crypt::encrypt($role->id))}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="PATCH">
+
+                                        <button class="btn btn-outline-danger" type="submit"><i class="fas fa-trash"></i> Eliminar</button>
+
+                                    </form>
+
+							    </th>
+                            @endif
 						</tr>
 					</tbody>
 

@@ -9,10 +9,9 @@
         <div class="row">
             <div class="col-md-2 my-auto">
                 @if (Auth::user()->image == 'user.svg')
-                <img src="{{ asset('img/user.svg') }}" class="card-img" alt="{{ Auth::user()->name }}">
+                    <img src="{{ asset('img/user.svg') }}" class="card-img" alt="{{ Auth::user()->name }}">
                 @else
-                    <img src="{{ asset('Archivos') }}/{{ Auth::user()->image }}" class="card-img"
-                         alt="{{ Auth::user()->name }}" >
+                    <img src="{{ asset('Archivos') }}/{{ Auth::user()->image }}" class="card-img" alt="{{ Auth::user()->name }}" >
                 @endif
 
             </div>

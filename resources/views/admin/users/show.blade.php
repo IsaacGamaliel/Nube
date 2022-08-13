@@ -8,7 +8,11 @@
 	<div class="row mb-3">
 		<div class="col-sm-12">
 			<div class="mt-5 pb-5">
-				<img src="{{ asset('img') }}/{{ $user->image }}" width="120" class="img-responsive rounded-circle d-block mx-auto">
+                @if ($user->image == "user.svg")
+                <img src="{{ asset('img') }}/{{ $user->image }}" width="120" class="img-responsive rounded-circle d-block mx-auto">
+                @else
+				<img src="{{ asset('Archivos') }}/{{ $user->image }}" width="140" class="img-responsive rounded-circle d-block mx-auto">
+                @endif
 				<h4 class="text-center mt-3 mb-1">{{ $user->name }}</h4>
 				<p class="text-center">{{ $user->email }}</p>
 

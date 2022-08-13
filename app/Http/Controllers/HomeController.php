@@ -68,7 +68,7 @@ class HomeController extends Controller
             $request->validate([
                 'name'=> 'required|string|max:50|alpha_espacio|min:4',
                 'email'=>'required|string|email|max:50|without_blanks',
-                'username'=>'required|string|max:20|min:5|without_blanks',
+                'username'=>'required|string|max:20|min:5|unique:users|without_blanks',
 
             ],[
                 'name.required'=>'Rquerido.',
@@ -84,6 +84,7 @@ class HomeController extends Controller
                 'username.without_blanks' => 'El campo Usuario no debe contener espacios en blanco.',
                 'username.min'=>'Minimo 5.',
                 'username.max'=>'Maximo 20.',
+                'username.unique'=>'Usuario ya existe'
             ]);
 
             $user = User::find($id);

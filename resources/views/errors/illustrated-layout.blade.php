@@ -240,11 +240,11 @@
         }
 
         .bg-indigo-light {
-            background-color: #7886d7;
+            background-color: #3853eb;
         }
 
         .bg-purple-light {
-            background-color: #a779e9;
+            background-color: #3e4fe3;
         }
 
         .bg-no-repeat {

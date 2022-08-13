@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -103,7 +104,10 @@ class RegisterController extends Controller
             $archivo=$request->file('image');
             $archivo->move(public_path().'/Archivos/',$archivo->getClientOriginalName());
             $nombre=$archivo->getClientOriginalName();
+
+
         }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -111,8 +115,9 @@ class RegisterController extends Controller
             'username' => str_slug($data['username']),
             'password' => Hash::make($data['password']),
         ]);
+
     }
 
-    
+
 }
 

@@ -19,8 +19,19 @@ class SubscriptionController extends Controller
    */
    public function index()
    {
+      $request = app('request');
       $plans = Plan::all();
-      return view('index', compact('plans'));
+      $user = Auth::user();
+      if ( !empty($user) ) {
+        if ($user->username == "admin123") {
+            return view('index', compact('plans'));
+        }
+        Auth()->user()->assignRole('Suscriptor');
+        return view('index', compact('plans'));
+      }else{
+        return view('index', compact('plans'));
+      }
+
    }
 
    public function subscriptions()
